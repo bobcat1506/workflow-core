@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WorkflowCore.Interface;
@@ -14,6 +15,13 @@ namespace WorkflowCore.Persistence.EntityFramework.Services
 {
     public abstract class WorkflowDbContext : DbContext
     {
+        protected WorkflowDbContext()
+        { }
+
+        protected WorkflowDbContext(DbContextOptions options)
+            : base(options)
+        { }
+
         protected abstract void ConfigureWorkflowStorage(EntityTypeBuilder<PersistedWorkflow> builder);
         protected abstract void ConfigureExecutionPointerStorage(EntityTypeBuilder<PersistedExecutionPointer> builder);
         protected abstract void ConfigureExecutionErrorStorage(EntityTypeBuilder<PersistedExecutionError> builder);
